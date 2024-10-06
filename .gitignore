@@ -36,7 +36,6 @@ logfile
 vendor/
 application.yml
 out/
-/director
 .idea/
 .DS_Store
 docs/cov.json

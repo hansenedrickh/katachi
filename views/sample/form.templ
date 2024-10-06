@@ -1,0 +1,50 @@
+package views
+
+import (
+    "fmt"
+    "github.com/hansenedrickh/katachi/pkg/sample"
+)
+
+func buttonText(sample sample.Sample) string {
+  if sample.ID == 0 {
+    return "Create"
+  }
+
+  return "Update"
+}
+
+func formMethod(sample sample.Sample) string {
+  if sample.ID == 0 {
+    return "POST"
+  }
+
+  return "PATCH"
+}
+
+func formAction(sample sample.Sample) templ.SafeURL {
+  if sample.ID == 0 {
+    return templ.SafeURL("/samples")
+  }
+
+  return templ.SafeURL(fmt.Sprintf("/samples/%d", sample.ID))
+}
+
+templ Form(sample sample.Sample) {
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md min-h-screen">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Sample</h2>
+        <form action={ formAction(sample) } method={ formMethod(sample) } hx-trigger="submit" hx-boost="true">
+            <!-- Name Field -->
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-semibold mb-2">Name</label>
+                <input type="text" id="name" value={ sample.Name } name="name" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Name" required>
+            </div>
+
+            <!-- Submit Button -->
+            <div>
+                <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    { buttonText(sample) }
+                </button>
+            </div>
+        </form>
+    </div>
+}

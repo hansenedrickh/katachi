@@ -2,18 +2,23 @@ package config
 
 import (
 	"github.com/spf13/viper"
-
-	"github.com/hansenedrickh/katachi/utils"
 )
 
 type Config struct {
-	Port     int
-	Keisatsu *KeisatsuConfig
+	Port           int
+	JWTSecretToken string
+	Database       DatabaseConfig
 }
 
-var appConfig *Config
+type DatabaseConfig struct {
+	Host     string `cfg:"DATABASE_HOST"`
+	Port     string `cfg:"DATABASE_PORT"`
+	Username string `cfg:"DATABASE_USERNAME"`
+	Password string `cfg:"DATABASE_PASSWORD"`
+	Name     string `cfg:"DATABASE_NAME"`
+}
 
-func Load() {
+func Load() Config {
 	viper.AutomaticEnv()
 	viper.SetConfigName("application")
 	viper.AddConfigPath("./")
@@ -23,16 +28,15 @@ func Load() {
 
 	viper.ReadInConfig()
 
-	appConfig = &Config{
-		Port:     utils.GetIntOrPanic("APP_PORT"),
-		Keisatsu: newKeisatsuConfig(),
+	return Config{
+		Port:           GetIntOrPanic("APP_PORT"),
+		JWTSecretToken: FatalGetString("JWT_SECRET_TOKEN"),
+		Database: DatabaseConfig{
+			Host:     FatalGetString("DATABASE_HOST"),
+			Port:     FatalGetString("DATABASE_PORt"),
+			Username: FatalGetString("DATABASE_USERNAME"),
+			Password: FatalGetString("DATABASE_PASSWORD"),
+			Name:     FatalGetString("DATABASE_NAME"),
+		},
 	}
-}
-
-func Port() int {
-	return appConfig.Port
-}
-
-func Keisatsu() *KeisatsuConfig {
-	return appConfig.Keisatsu
 }

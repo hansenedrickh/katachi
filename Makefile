@@ -1,14 +1,15 @@
 .PHONY: all
 all: build fmt vet lint test
 
-APP=tenkai
+APP=katachi
 ALL_PACKAGES=$(shell go list ./... | grep -v "vendor")
 UNIT_TEST_PACKAGES=$(shell  go list ./... | grep -v "vendor")
 
 DB_USER ?= postgres
-DB_PASS ?= password
+DB_PASS ?= pass
 DB_HOST ?= localhost
 DB_PORT ?= 5432
+DB_NAME ?= katachi
 
 APP_EXECUTABLE="./out/$(APP)"
 
@@ -21,8 +22,14 @@ setup:
 
 compile:
 	GO111MODULE=on go mod vendor
+	templ generate
 	mkdir -p out/
 	go build -o $(APP_EXECUTABLE)
+
+start:
+	$(APP_EXECUTABLE) start
+
+run: compile start
 
 build: fmt vet lint compile
 
@@ -62,7 +69,7 @@ protoc:
 	ls contracts/*.pb.go | xargs -n1 -IX bash -c 'sed s/,omitempty// X > X.tmp && mv X{.tmp,}'
 
 migration-up:
-	goose -dir db/migrations/ postgres "user=$(DB_USER) password=$(DB_PASS) dbname=$(DB_NAME) sslmode=disable" up
+	goose -dir migrations/ postgres "user=$(DB_USER) password=$(DB_PASS) dbname=$(DB_NAME) sslmode=disable" up
 
 migration-down:
-	goose -dir db/migrations/ postgres "user=$(DB_USER) password=$(DB_PASS) dbname=$(DB_NAME) sslmode=disable" down
+	goose -dir migrations/ postgres "user=$(DB_USER) password=$(DB_PASS) dbname=$(DB_NAME) sslmode=disable" down

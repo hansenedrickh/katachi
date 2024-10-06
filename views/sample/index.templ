@@ -1,0 +1,57 @@
+package views
+
+import (
+    "fmt"
+
+    "github.com/hansenedrickh/katachi/pkg/sample"
+    "github.com/hansenedrickh/katachi/views/components"
+)
+
+templ Index(samples []sample.Sample) {
+    <!DOCTYPE html>
+    <html lang="en">
+        @components.Header()
+        <body>
+            <main class="min-h-screen w-full">
+                <nav class="flex w-full border border-b-zinc-200 px-4 py-4">
+                    <h3 class="text-base lg:text-lg font-medium text-center">
+                        Sample
+                    </h3>
+                </nav>
+                <div id="sample-container" class="mt-10 bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="mb-5 mr-5 flex justify-end">
+                        <button hx-get="/samples/form/0"
+                                hx-target="#sample-container"
+                                class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-700">Add</button>
+                    </div>
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-gray-800 text-white text-left">
+                            <tr>
+                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">ID</th>
+                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Name</th>
+                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-700">
+                            for _, sample := range samples {
+                                <tr>
+                                    <td class="py-3 px-4 border-b">{ fmt.Sprint(sample.ID) }</td>
+                                    <td class="py-3 px-4 border-b">{ sample.Name }</td>
+                                    <td class="py-3 px-4 border-b">
+                                        <button hx-get={ fmt.Sprintf("/samples/form/%d", sample.ID)}
+                                                hx-target="#sample-container"
+                                                class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">Edit</button>
+                                        <button hx-delete={ fmt.Sprintf("/samples/%d", sample.ID) }
+                                                hx-confirm="Are you sure?"
+                                                class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700">Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </body>
+        @components.Footer()
+    </html>
+}

@@ -1,0 +1,45 @@
+package views
+
+import (
+    "github.com/hansenedrickh/katachi/views/components"
+)
+
+templ LoginForm() {
+    <!DOCTYPE html>
+    <html lang="en">
+        @components.Header()
+        <body>
+            <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md min-h-screen">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Login</h2>
+                <form action="/login" method="POST">
+                    <!-- Username Field -->
+                    <div class="mb-4">
+                        <label for="name" class="block text-gray-700 font-semibold mb-2">Username</label>
+                        <input type="text" id="username" name="username" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Name" required>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="mb-4">
+                        <label for="password" class="block text-gray-700 font-semibold mb-2">Password</label>
+                        <input type="password" id="password" name="password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Password" required>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                            Login
+                        </button>
+                    </div>
+
+                    <div class="mt-5">
+                        <a href="/register">
+                            <button type="button" class="w-full bg-green-500 text-white font-semibold py-3 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                                Register
+                            </button>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </body>
+        @components.Footer()
+    </html>
+}
