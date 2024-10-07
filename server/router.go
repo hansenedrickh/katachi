@@ -24,6 +24,9 @@ func SetupRouter(router *mux.Router, cfg config.Config, deps *dependencies.Depen
 	loginHandler := handler.NewLoginHandler(deps.UserUsecase)
 	router.Methods(http.MethodPost).Path("/login").Handler(loginHandler)
 
+	logoutHandler := handler.NewLogoutHandler()
+	router.Methods(http.MethodGet).Path("/logout").Handler(logoutHandler)
+
 	registerFormHandler := handler.NewRegisterFormHandler()
 	router.Methods(http.MethodGet).Path("/register").Handler(registerFormHandler)
 

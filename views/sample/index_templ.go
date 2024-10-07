@@ -44,7 +44,15 @@ func Index(samples []sample.Sample) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body><main class=\"min-h-screen w-full\"><nav class=\"flex w-full border border-b-zinc-200 px-4 py-4\"><h3 class=\"text-base lg:text-lg font-medium text-center\">Sample</h3></nav><div id=\"sample-container\" class=\"mt-10 bg-white shadow-md rounded-lg overflow-hidden\"><div class=\"mb-5 mr-5 flex justify-end\"><button hx-get=\"/samples/form/0\" hx-target=\"#sample-container\" class=\"bg-green-500 text-white px-3 py-1 rounded hover:bg-green-700\">Add</button></div><table class=\"min-w-full bg-white\"><thead class=\"bg-gray-800 text-white text-left\"><tr><th class=\"w-1/4 py-3 px-4 uppercase font-semibold text-sm\">ID</th><th class=\"w-1/4 py-3 px-4 uppercase font-semibold text-sm\">Name</th><th class=\"w-1/4 py-3 px-4 uppercase font-semibold text-sm\">Action</th></tr></thead> <tbody class=\"text-gray-700\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body><main class=\"min-h-screen w-full\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.Navbar().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"sample-container\" class=\"mt-10 bg-white shadow-md rounded-lg overflow-hidden\"><div class=\"mb-5 mr-5 flex justify-end\"><button hx-get=\"/samples/form/0\" hx-target=\"#sample-container\" class=\"bg-green-500 text-white px-3 py-1 rounded hover:bg-green-700\">Add</button></div><table class=\"min-w-full bg-white\"><thead class=\"bg-gray-800 text-white text-left\"><tr><th class=\"w-1/4 py-3 px-4 uppercase font-semibold text-sm\">ID</th><th class=\"w-1/4 py-3 px-4 uppercase font-semibold text-sm\">Name</th><th class=\"w-1/4 py-3 px-4 uppercase font-semibold text-sm\">Action</th></tr></thead> <tbody class=\"text-gray-700\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -56,7 +64,7 @@ func Index(samples []sample.Sample) templ.Component {
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(sample.ID))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/sample/index.templ`, Line: 38, Col: 90}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/sample/index.templ`, Line: 35, Col: 90}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -69,7 +77,7 @@ func Index(samples []sample.Sample) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(sample.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/sample/index.templ`, Line: 39, Col: 80}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/sample/index.templ`, Line: 36, Col: 80}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -82,7 +90,7 @@ func Index(samples []sample.Sample) templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/samples/form/%d", sample.ID))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/sample/index.templ`, Line: 41, Col: 99}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/sample/index.templ`, Line: 38, Col: 99}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -95,7 +103,7 @@ func Index(samples []sample.Sample) templ.Component {
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/samples/%d", sample.ID))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/sample/index.templ`, Line: 44, Col: 97}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/sample/index.templ`, Line: 41, Col: 97}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {

@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -13,14 +12,12 @@ func Auth(secretKey string) func(http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			token, err := r.Cookie("token")
 			if err != nil {
-				fmt.Println("error getting token cookie:", err)
 				http.Redirect(w, r, "/login", http.StatusSeeOther)
 				return
 			}
 
 			err = verifyToken(token.Value, secretKey)
 			if err != nil {
-				fmt.Println("error verifying token:", err)
 				http.Redirect(w, r, "/login", http.StatusSeeOther)
 				return
 			}
