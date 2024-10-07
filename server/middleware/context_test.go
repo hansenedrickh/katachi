@@ -13,7 +13,7 @@ func TestContext(t *testing.T) {
 	r, _ := http.NewRequest("GET", "/", nil)
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		assert.NotEmpty(t, r.Context().Value(ContextKeyRequestID))
+		assert.NotEmpty(t, r.Context().Value(contextKey("request_id")))
 	}))
 
 	contextHandler := Context(handler)

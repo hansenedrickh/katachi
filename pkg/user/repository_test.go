@@ -61,7 +61,7 @@ func TestRepository_FetchError(t *testing.T) {
 
 	repo := NewRepository(db)
 	ctx := context.TODO()
-	
+
 	_, err = repo.Fetch(ctx, "Invalid")
 	assert.Error(t, err)
 }
